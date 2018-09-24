@@ -1,4 +1,3 @@
-const User = require('./user');
 module.exports = (sequelize,type) =>{
 	var Profile =  sequelize.define("profile", {
 		id:{
