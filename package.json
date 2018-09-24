@@ -1,0 +1,32 @@
+{
+  "name": "enamel_hub_server",
+  "version": "1.0.0",
+  "description": "The backend for enamel hub PWA ",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "dental"
+  ],
+  "author": "Ahmed Abouzied <ahmedaabouzied44@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.1",
+    "bluebird": "^3.5.2",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.1",
+    "sequelize": "^4.38.1"
+  },
+  "devDependencies": {
+    "chalk": "^2.4.1",
+    "nodemon": "^1.18.4"
+  }
+}
