@@ -35,7 +35,13 @@ module.exports = {
         res.status(500).send({
             message : message,
             error : error
-        })
+        });
+    },
+    sendForbidden : function(error , res,message){
+        console.log(error);
+        res.status(400).send({
+            message:"User is not logged in"
+        });
     },
     setProfileImage(gender){
         if (gender == 'female'){
