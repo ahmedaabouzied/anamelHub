@@ -9,6 +9,8 @@ router.post('/create',casesController.create);
 
 router.get('/show/:id',casesController.show);
 
+router.get('/showUserCases/:id',casesController.showCasesByUser);
+
 router.put('/edit/:id',casesController.update);
 
 router.delete('/delete/:id',casesController.remove);

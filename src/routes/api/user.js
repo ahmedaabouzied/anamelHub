@@ -12,7 +12,7 @@ router.post('/create',
 router.get('/showbyid/:id',
             userController.selectUserById,
             profileController.show
-        );
+        );      
 router.post('/login',
             userController.login,
             profileController.show

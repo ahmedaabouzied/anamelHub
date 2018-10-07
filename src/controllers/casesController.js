@@ -160,5 +160,31 @@ module.exports = {
         catch(error){
             ControllerHelpers.sendError(error,res,"Error deleting case")
         }
+    },
+    async showCasesByUser(req,res){
+        try{
+            console.log(req.headers.token)
+            let userId = ControllerHelpers.jwtVerifyUser(req.headers.token);
+            if(!userId){
+                ControllerHelpers.sendError("error updating case because user is not logged in ",res,"User is not logged in ");
+            }else{
+                Case.findAll({
+                    where:{
+                        userId:userId
+                    }
+                })
+                .catch((error)=>{
+                    ControllerHelpers.sendError(error,res,"DB error getting cases");
+                })
+                .then((result)=>{
+                    res.send({
+                        cases:result
+                    })
+                })
+            }
+        }
+        catch(error){
+            ControllerHelpers.sendError(error,res,"Error getting user cases")
+        }
     }
 }
