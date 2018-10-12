@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
  */
 module.exports = {
     jwtSignUser : function(user){
-        const ONE_DAY = 24*60*60;
+        const ONE_DAY = 7*24*60*60;
         let userId = {id:user.id};
         return jwt.sign(userId,process.env.JWTSECRET, {
             expiresIn : ONE_DAY

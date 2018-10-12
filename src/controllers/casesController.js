@@ -1,5 +1,6 @@
 const Case = require('../models/index').Case;
 const User = require('../models/index').User;
+const Star = require('../models/index').Star;
 const Profile = require('../models/index').Profile;
 const ControllerHelpers = require('./controllerHelpers');
 module.exports = {
@@ -65,11 +66,20 @@ module.exports = {
                         }
                     })
                     .then((profile)=>{
-                        res.send({
-                            case:result,
-                            user:user,
-                            profile:profile
+                        Star.find({
+                            where:{
+                                caseId : result.id
+                            }
                         })
+                        .then((stars)=>{
+                            res.send({
+                                case:result,
+                                stars:stars,
+                                user:user,
+                                profile:profile
+                            })
+                        })
+                        
                     })
                 })
                 .catch((error)=>{
@@ -170,8 +180,12 @@ module.exports = {
             }else{
                 Case.findAll({
                     where:{
-                        userId:userId
-                    }
+                        userId:req.params.id
+                    },
+                    include: [{// Notice `include` takes an ARRAY
+                        model: Star,
+                        as: 'stars'
+                    }]
                 })
                 .catch((error)=>{
                     ControllerHelpers.sendError(error,res,"DB error getting cases");
