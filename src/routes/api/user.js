@@ -18,6 +18,7 @@ router.post('/login',
             profileController.show
         );
 router.put('/update',userController.update);
+router.put('/update/profile',profileController.update);
 router.delete('/delete/:id',userController.remove);
 
 module.exports = router;

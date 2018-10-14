@@ -14,7 +14,7 @@ module.exports = (sequelize,type) =>{
         gender:{
             type:type.STRING
         },
-        coutry:{
+        country:{
             type: type.STRING,
         },
         date_of_birth:{

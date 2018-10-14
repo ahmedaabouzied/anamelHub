@@ -32,7 +32,9 @@ User.hasMany(Case,{as:"cases"});
 Case.hasMany(Star , {as:"stars"});
 User.hasMany(Star, {as:"stars"});
 // sync models with database
-sequelize.sync({})
+sequelize.sync(
+	// {force:true}
+)
     .then(function(){
         console.log(chalk.blue("Database and tables created !!"));
     })
