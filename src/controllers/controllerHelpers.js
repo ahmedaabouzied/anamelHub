@@ -19,6 +19,9 @@ module.exports = {
     jwtVerifyUser: function(token){
         id = null;
         jwt.verify(token, process.env.JWTSECRET, function(err, decoded) {
+            if(!decoded){
+                throw "User is not logged in"
+            }
             console.log(decoded.id)
             id = decoded.id;
           });

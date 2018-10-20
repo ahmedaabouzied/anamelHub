@@ -1,10 +1,12 @@
-module.exports = (sequelize,type)=>{
-    var Star = sequelize.define("star",{
-        id:{
-            type:type.INTEGER,
-            primaryKey:true,
-            autoIncrement:true,
-        }
-    });
-    return Star;
-}
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Star = sequelize.define('Star', {
+    caseId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER
+  }, {});
+  Star.associate = function (models) {
+    // associations can be defined here
+
+  };
+  return Star;
+};

@@ -22,6 +22,8 @@ module.exports = {
                 ControllerHelpers.sendError(error,res,"DB error creating the star");
             })
             .then(()=>{
+                // Star.setUser(userId);
+                // Star.setCase(caseId);
                 res.send({
                     message: "star created succesfully"
                 })

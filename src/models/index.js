@@ -1,52 +1,37 @@
-const Sequelize = require("sequelize");
-const chalk = require("chalk");
-const UserModel = require('./user');
-const ProfileModel = require('./profile');
-const CaseModel = require('./case');
-const StarModel = require('./star');
+'use strict';
 
-// initialize sequelize
-const sequelize = new Sequelize(
-	'enamel_hub_local',
-	'usr',
-	'',
-	{
-		dialect: 'mysql',
-		pool : {
-			max: 5,
-			min: 0,
-			idle: 10000
-		},
-	}
-);
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../../config/database.json')[env];
+const db = {};
 
-// define models
-const User = UserModel(sequelize,Sequelize);
-const Profile = ProfileModel(sequelize,Sequelize);
-const Case = CaseModel(sequelize,Sequelize);
-const Star = StarModel(sequelize,Sequelize);
-
-// define relations 
-Profile.belongsTo(User);
-User.hasMany(Case,{as:"cases"});
-Case.hasMany(Star , {as:"stars"});
-User.hasMany(Star, {as:"stars"});
-// sync models with database
-sequelize.sync(
-	// {force:true}
-)
-    .then(function(){
-        console.log(chalk.blue("Database and tables created !!"));
-    })
-    .catch((error)=>{
-        console.log("Error" +error)
-        throw error;
-    })
-
-// export models
-module.exports={
-	User,
-	Profile,
-	Case,
-	Star
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
+
+fs
+  .readdirSync(__dirname)
+  .filter(file => {
+    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+  })
+  .forEach(file => {
+    const model = sequelize['import'](path.join(__dirname, file));
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+module.exports = db;

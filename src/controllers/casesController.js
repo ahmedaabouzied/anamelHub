@@ -24,13 +24,13 @@ module.exports = {
                     details : req.body.details,
                     treatment :req.body.treatment,
                     image_url : req.body.image_url,
-                    userId : userId
                 }
                 Case.create(caseObj)
                 .catch((error)=>{
                     ControllerHelpers.sendError(error,res," DB Error creating case")
                 })
                 .then((result)=>{
+                    result.setUser(userId);
                     res.send({
                         message : "Case Created Succesfully !",
                         case : result
@@ -66,7 +66,7 @@ module.exports = {
                         }
                     })
                     .then((profile)=>{
-                        Star.find({
+                        Star.findAll({
                             where:{
                                 caseId : result.id
                             }

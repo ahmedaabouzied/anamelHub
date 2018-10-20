@@ -1,43 +1,44 @@
-module.exports = (sequelize,type) =>{
-	var Profile =  sequelize.define("profile", {
-		id:{
-			type:type.INTEGER,
-			primaryKey:true,
-			autoIncrement:true
-		},
-		first_name: {
-			type:type.STRING,
-        },
-        last_name: {
-            type:type.STRING,
-        },
-        gender:{
-            type:type.STRING
-        },
-        country:{
-            type: type.STRING,
-        },
-        date_of_birth:{
-            type:type.STRING,
-        },
-        city:{
-            type: type.STRING,
-        },
-        education:{
-            type:type.STRING,
-        },
-        university_name: {
-            type:type.STRING,
-        },
-        profile_image_url:{
-            type:type.STRING,
-        },
-        cover_image_url:{
-            type:type.STRING,
-        },
-        bio:{
-            type:type.TEXT,
-        },
-    });
-	return Profile;
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Profile = sequelize.define('Profile', {
+    first_name: {
+      type:  DataTypes.STRING,
+    },
+    last_name: {
+      type:  DataTypes.STRING,
+    },
+    gender: {
+      type:  DataTypes.STRING
+    },
+    country: {
+      type:  DataTypes.STRING,
+    },
+    date_of_birth: {
+      type:  DataTypes.STRING,
+    },
+    city: {
+      type:  DataTypes.STRING,
+    },
+    education: {
+      type:  DataTypes.STRING,
+    },
+    university_name: {
+      type:  DataTypes.STRING,
+    },
+    profile_image_url: {
+      type:  DataTypes.STRING,
+    },
+    cover_image_url: {
+      type:  DataTypes.STRING,
+    },
+    bio: {
+      type:  DataTypes.TEXT,
+    },
+  }, {});
+  Profile.associate = function (models) {
+    // associations can be defined here
+    // Profile has one User
+    Profile.belongsTo(models.User);
+  };
+  return Profile;
 };

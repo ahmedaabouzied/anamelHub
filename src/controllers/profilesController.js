@@ -17,14 +17,16 @@ module.exports = {
                 gender: req.body.gender,
                 cover_image_url:'https://firebasestorage.googleapis.com/v0/b/enamel-hub.appspot.com/o/cover_images%2Fdefault_cover.jpg?alt=media&token=8d06d8ba-6601-4034-9172-4531c4b7a3e6',
                 date_of_birth :req.body.date_of_birth,
-                userId:res.userId,
+                // userId:res.userId,
             }
+            // console.log(userObj)
             userObj.profile_image_url = ControllerHelpers.setProfileImage(req.body.gender);
             await Profile.create(userObj)
             .catch((error)=>{
                 ControllerHelpers.sendError(error,res,"DB error in creating profile")
             })
             .then((profile)=>{
+                profile.setUser(res.userId);
                 profile.getUser().then(function(result){
                     let user = result.dataValues;
                     delete user.password;

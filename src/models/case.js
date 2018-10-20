@@ -1,34 +1,35 @@
-module.exports = (sequelize,type)=>{
-    var Case = sequelize.define("case",{
-        id:{
-            type :type.INTEGER,
-            primaryKey : true,
-            autoIncrement: true
-        },
-        title:{
-            type:type.STRING,
-        },
-        gender:{
-            type:type.STRING
-        },
-        age:{
-            type:type.INTEGER
-        },
-        symptoms:{
-            type:type.TEXT
-        },
-        diagnosis:{
-            type:type.TEXT
-        },
-        details:{
-            type:type.TEXT
-        },
-        treatment:{
-            type:type.TEXT
-        },
-        image_url:{
-            type:type.STRING
-        },
-    });
-    return Case;
-}
+'use strict';
+module.exports = (sequelize, DataTypes) => {
+  const Case = sequelize.define('Case', {
+    title: {
+      type: DataTypes.STRING,
+    },
+    gender: {
+      type: DataTypes.STRING
+    },
+    age: {
+      type: DataTypes.INTEGER
+    },
+    symptoms: {
+      type: DataTypes.TEXT
+    },
+    diagnosis: {
+      type: DataTypes.TEXT
+    },
+    details: {
+      type: DataTypes.TEXT
+    },
+    treatment: {
+      type: DataTypes.TEXT
+    },
+    image_url: {
+      type: DataTypes.STRING
+    },
+  }, {});
+  Case.associate = function (models) {
+    // associations can be defined here
+    Case.belongsTo(models.User, { as: 'user' });
+    Case.hasMany(models.Star, { as: 'case' });
+  };
+  return Case;
+};
