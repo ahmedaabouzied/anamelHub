@@ -121,20 +121,27 @@ module.exports = {
                         console.log(result.userId);
                         console.log(userId);
                         console.log(result.userId == userId);
+                        let tags = req.body.tags;
                         if (result.userId == userId) {
                             Case.update(req.body, {
                                 where: {
                                     id: req.params.id
-                                }
+                                },
                             })
-                                .catch((error) => {
-                                    ControllerHelpers.sendError(error, res, "DB error updating case");
-                                })
-                                .then((result) => {
-                                    res.send({
-                                        message: "Case updated succesfully",
+                            .catch((error) => {
+                                ControllerHelpers.sendError(error, res, "DB error updating case");
+                            })
+                            .then((result) => {
+                                Case.findById(req.params.id)
+                                .then((caseRes)=>{
+                                    caseRes.setTags(tags,{ through: "CaseTag"})
+                                    .then(()=>{
+                                        res.send({
+                                            message: "Case updated succesfully",
+                                        })
                                     })
                                 })
+                            })
                         } else {
                             ControllerHelpers.sendError("Unauthorized", res, "User doesn't own this case");
                         }
