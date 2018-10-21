@@ -58,7 +58,7 @@ module.exports = {
         let fields = JSON.parse(JSON.stringify(req.body));
         Profile.update(fields,{
             where:{
-                id:userId
+                userId:userId
             }
         })
         .catch((error)=>{

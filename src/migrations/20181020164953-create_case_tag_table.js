@@ -1,17 +1,12 @@
 'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Stars', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
+    return queryInterface.createTable('CaseTag', {
       caseId: {
         type: Sequelize.INTEGER
       },
-      userId: {
+      tagId: {
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -22,11 +17,12 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        default: Date.now()
+        default: Date.now() 
       }
-    });
+    })
   },
+
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Stars');
+   return queryInterface.dropTable('CaseTag');
   }
 };

@@ -10,4 +10,6 @@ router.use('/user',userRoutes);
 const caseRoutes = require('./case');
 router.use('/cases',caseRoutes);
 
+const tagRoutes = require('./tag');
+router.use('/tags',tagRoutes);
 module.exports = router;

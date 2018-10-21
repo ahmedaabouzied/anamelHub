@@ -25,11 +25,14 @@ module.exports = (sequelize, DataTypes) => {
     image_url: {
       type: DataTypes.STRING
     },
-  }, {});
+  }, {
+    timestamps: true
+  });
   Case.associate = function (models) {
     // associations can be defined here
     Case.belongsTo(models.User, { as: 'user' });
-    Case.hasMany(models.Star, { as: 'case' });
+    Case.hasMany(models.Star, { as: 'stars' });
+    Case.belongsToMany(models.Tag, { through: 'CaseTag' })
   };
   return Case;
 };
