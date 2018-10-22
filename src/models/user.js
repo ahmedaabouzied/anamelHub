@@ -53,6 +53,7 @@ module.exports = (sequelize, DataTypes) => {
     User.hasOne(models.Profile);
     User.hasMany(models.Case, { as: "cases" });
     User.hasMany(models.Star, { as: "stars" });
+    User.hasMany(models.Follower , {as:"followers"})
   };
   return User;
 };
