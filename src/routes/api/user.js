@@ -26,5 +26,5 @@ router.post('/follow/:followingId',followersController.follow)
 
 router.post('/unfollow/:followingId',followersController.unfollow);
 router.get('/isfollowing/:id',followersController.isFollowing);
-
+router.get('/getfollowingcases/:offset',followersController.getCasesOfFollowedUsers);
 module.exports = router;

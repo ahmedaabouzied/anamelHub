@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     // User has one Profile
     User.hasOne(models.Profile);
-    User.hasMany(models.Case, { as: "cases" });
+    //User.hasMany(models.Case, { as: "cases" });
     User.hasMany(models.Star, { as: "stars" });
     User.hasMany(models.Follower , {as:"followers"})
   };
